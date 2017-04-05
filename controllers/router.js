@@ -2,6 +2,9 @@ let express = require('express');
 let router = express.Router();
 let users = require('./users')
 
+//talk to server
+router.get('/talk', users.talk)
+
 // Create a user (works)
 router.post('/users', users.create)
 
