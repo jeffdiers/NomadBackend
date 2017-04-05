@@ -7,7 +7,7 @@ var twilioClient = require('twilio')(config.accountSid, config.authToken);
 
 // Define user model schema
 var UserSchema = new mongoose.Schema({
-    fullName: {
+    name: {
         type: String,
         required: true
     },
