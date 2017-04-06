@@ -3,7 +3,7 @@ let router = express.Router();
 let users = require('./users')
 
 //talk to server
-router.get('/talk', users.talk)
+router.post('/talk/:id', users.talk)
 
 // Create a user (works)
 router.post('/users', users.create)

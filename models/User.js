@@ -31,7 +31,6 @@ var UserSchema = new mongoose.Schema({
     }
 });
 
-
 // Send a verification token to this user
 UserSchema.methods.sendAuthyToken = function(cb) {
     var self = this;

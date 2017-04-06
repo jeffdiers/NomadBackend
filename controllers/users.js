@@ -4,6 +4,7 @@ let User = require('../models/User')
 // Fits master tracker for multi-table 
 
 exports.talk = function(req, res) {
+    console.log(req.params.id)
     console.log(req.body)
     res.send({hello: 'hello'})
 }
@@ -24,7 +25,7 @@ exports.create = function(req, res) {
 
     user.save(function(err, doc) {
         if(err) {
-            res.send('something went wrong')
+            res.send('something went wrong' + err)
             console.error('something went wrong saving the new user :(')
         } else {
             // If great succes in saving the user, send them a authy token
@@ -52,7 +53,7 @@ exports.verify = function(req, res) {
             return die('User not found for this ID. :( ')
             console.error('User not found for this ID. :( ')
         }
-
+        console.log(req.body)
         // If user is found, lets verify the token they entered
         user = doc
         user.verifyAuthyToken(req.body.code, postVerify)
@@ -78,19 +79,19 @@ exports.verify = function(req, res) {
         }
 
         // Send a success text message
-        let message = 'Hell yea! You did it, signup complete! :)'
+        let message = `Hell yea! You did it, signup complete! :) ${user.name}`
         user.sendMessage(message, function(err) {
             if(err) {
-                req.send('oops... error verifing :(')
+                res.send('oops... error verifing :(')
             }
 
-            req.send('great success!', message)
+            res.send('great success!')
         })
     }
 
     //respond with and err  
     function die(message) {
-        req.send('errors' + message)
+        res.send('errors' + message)
     }
 
 }
