@@ -4,7 +4,6 @@ let User = require('../models/User')
 // Fits master tracker for multi-table 
 
 exports.talk = function(req, res) {
-    console.log(req.params.id)
     console.log(req.body)
     res.send({hello: 'hello'})
 }
