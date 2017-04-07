@@ -22,16 +22,16 @@ exports.create = function(req, res) {
     console.log(user)
     console.log('---------------------------')
 
-
     user.save(function(err, doc) {
         if(err) {
-            res.send('something went wrong' + err)
+            res.status(500).send('something went wrong saving the new user :(')
             console.error('something went wrong saving the new user :(')
         } else {
             // If great succes in saving the user, send them a authy token
             user.sendAuthyToken(function(err) {
                 if (err) {
                     console.error('couldnt send the token :(')
+                    res.status(500).send('couldnt send the token :(')
                 }
                 console.log('-----doc--------')
                 console.log(doc)
@@ -85,13 +85,13 @@ exports.verify = function(req, res) {
                 res.send('oops... error verifing :(')
             }
 
-            res.send('great success!')
+            res.send(user)
         })
     }
 
     //respond with and err  
     function die(message) {
-        res.send('errors' + message)
+        res.status(500).send('errors! ' + message)
     }
 
 }
