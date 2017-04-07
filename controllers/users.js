@@ -4,6 +4,7 @@ let User = require('../models/User')
 // Fits master tracker for multi-table 
 
 exports.talk = function(req, res) {
+    console.log(req.params.id)
     console.log(req.body)
     res.send({hello: 'hello'})
 }
@@ -21,16 +22,17 @@ exports.create = function(req, res) {
     console.log(user)
     console.log('---------------------------')
 
+
     user.save(function(err, doc) {
         if(err) {
-            res.status(500).send('something went wrong saving the new user :(')
+            return die('something went wrong')
             console.error('something went wrong saving the new user :(')
         } else {
             // If great succes in saving the user, send them a authy token
             user.sendAuthyToken(function(err) {
                 if (err) {
                     console.error('couldnt send the token :(')
-                    res.status(500).send('couldnt send the token :(')
+                    // return die('couldnt send the token :(')
                 }
                 console.log('-----doc--------')
                 console.log(doc)
@@ -40,6 +42,9 @@ exports.create = function(req, res) {
         }
     })
 
+    function die(message) {
+        res.status(500).send('errors! ' + message)
+    }
     
 }
 
