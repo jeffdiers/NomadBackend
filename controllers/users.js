@@ -9,19 +9,36 @@ exports.talk = function(req, res) {
     res.send({hello: 'hello'})
 }
 
+exports.find = function(req, res) {
+    let params = req.body
+    let user
+    console.log(params.email)
+
+    User.findOne({ email: params.email}, function (err, doc) {
+        if(err || !doc) {
+            res.status(500).send('No user found with email ')
+        }
+        // If user is found send the user profile to client
+        else {
+            user = doc
+            res.send(user)
+        }
+
+    })
+
+}
+
 exports.create = function(req, res) {
     let params = req.body
+
     // Create new user based on form parameters
     let user = new User({
         name: params.name,
         email: params.email,
         phone: params.phoneNumber,
-        countryCode: params.callingCode
+        countryCode: params.callingCode,
+        isBarber: params.isBarber
     })
-    console.log('----new-user-model---------')
-    console.log(user)
-    console.log('---------------------------')
-
 
     user.save(function(err, doc) {
         if(err) {
@@ -34,9 +51,6 @@ exports.create = function(req, res) {
                     console.error('couldnt send the token :(')
                     // return die('couldnt send the token :(')
                 }
-                console.log('-----doc--------')
-                console.log(doc)
-                console.log('----------------')
                 res.send({_id: user._id})
             })
         }
@@ -57,7 +71,6 @@ exports.verify = function(req, res) {
             return die('User not found for this ID. :( ')
             console.error('User not found for this ID. :( ')
         }
-        console.log(req.body)
         // If user is found, lets verify the token they entered
         user = doc
         user.verifyAuthyToken(req.body.code, postVerify)

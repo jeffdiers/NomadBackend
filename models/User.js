@@ -23,6 +23,10 @@ var UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    isBarber: {
+        type: Boolean,
+        default: false
+    },
     authyId: String,
     email: {
         type: String,
