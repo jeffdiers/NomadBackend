@@ -28,6 +28,27 @@ exports.find = function(req, res) {
 
 }
 
+exports.update = function(req, res) {
+    
+    User.findById(req.params.id, function(err, doc) {
+        if(err || !doc) {
+            res.status(500).send('couldnt update user')
+            console.error('error updating user')
+        } else {
+            doc.email = req.body.email || doc.email
+            doc.name = req.body.name || doc.name
+
+            doc.save(function (err, user) {
+                if (err) {
+                    res.status(500).send(err)
+                }
+                res.send(user);
+            });
+        } 
+    })
+
+}
+
 exports.create = function(req, res) {
     let params = req.body
 

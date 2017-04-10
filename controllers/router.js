@@ -11,6 +11,9 @@ router.post('/users/find', users.find)
 // Create a user (works)
 router.post('/users/create', users.create)
 
+// Edit a user
+router.put('/users/:id/update', users.update)
+
 // Verify the user by checking the auth token
 router.post('/users/:id/verify', users.verify)
 
