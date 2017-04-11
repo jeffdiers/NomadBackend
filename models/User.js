@@ -11,6 +11,9 @@ var UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    imageUrl: {
+        type: String,
+    },
     countryCode: {
         type: String,
         required: true
@@ -32,6 +35,10 @@ var UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    dateJoined: {
+        type: Date,
+        default: Date.now
     }
 });
 
