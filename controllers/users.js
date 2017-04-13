@@ -70,6 +70,7 @@ exports.create = function(req, res) {
             user.sendAuthyToken(function(err) {
                 if (err) {
                     console.error('couldnt send the token :(')
+                    console.error(err)
                     // return die('couldnt send the token :(')
                 }
                 res.send({_id: user._id})

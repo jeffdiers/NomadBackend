@@ -1,7 +1,7 @@
-var socketIO = require('socket.io');
+let socketIO = require('socket.io');
 
 module.exports = function(server) {
-  var io = socketIO(server);
+  let io = socketIO(server);
   
   io.on('connection', function (socket) {
         console.log('We have a connection')

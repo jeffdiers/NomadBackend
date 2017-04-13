@@ -1,12 +1,12 @@
-var mongoose = require('mongoose');
-var config = require('../config');
+let mongoose = require('mongoose');
+let config = require('../config');
 
 // Create authenticated Authy and Twilio API clients
-var authy = require('authy')(config.authyKey);
-var twilioClient = require('twilio')(config.accountSid, config.authToken);
+let authy = require('authy')(config.authyKey);
+let twilioClient = require('twilio')(config.accountSid, config.authToken);
 
 // Define user model schema
-var UserSchema = new mongoose.Schema({
+let UserSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -39,12 +39,18 @@ var UserSchema = new mongoose.Schema({
     dateJoined: {
         type: Date,
         default: Date.now
+    },
+    lat: {
+        type: Number
+    },
+    lng: {
+        type: Number
     }
 });
 
 // Send a verification token to this user
 UserSchema.methods.sendAuthyToken = function(cb) {
-    var self = this;
+    let self = this;
 
     if (!self.authyId) {
         // Register this user if it's a new user
@@ -74,7 +80,7 @@ UserSchema.methods.sendAuthyToken = function(cb) {
 
 // Test a 2FA token
 UserSchema.methods.verifyAuthyToken = function(otp, cb) {
-    var self = this;
+    let self = this;
     authy.verify(self.authyId, otp, function(err, response) {
         cb.call(self, err, response);
     });
@@ -82,7 +88,7 @@ UserSchema.methods.verifyAuthyToken = function(otp, cb) {
 
 // Send a text message via twilio to this user
 UserSchema.methods.sendMessage = function(message, cb) {
-    var self = this;
+    let self = this;
     twilioClient.sendMessage({
         to: self.countryCode+self.phone,
         from: config.twilioNumber,

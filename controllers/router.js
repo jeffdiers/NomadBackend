@@ -8,7 +8,7 @@ router.post('/talk', users.talk)
 // User is logging in
 router.post('/users/find', users.find)
 
-// Create a user (works)
+// Create a user
 router.post('/users/create', users.create)
 
 // Edit a user
