@@ -1,6 +1,6 @@
 # Fleam
 
-this is the backend repo for [Nomad Barber](https://github.com/jeffdiers/NomadBarber/blob/master/README.md). 
+Backend for [Nomad Barber](https://github.com/jeffdiers/NomadBarber/blob/master/README.md). 
 
 Create an Authy and Twilio account and put your keys into your .env 
 
