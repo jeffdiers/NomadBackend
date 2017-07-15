@@ -1,4 +1,4 @@
-# Fleam
+# Nomad Backend
 
 Backend for [Nomad Barber](https://github.com/jeffdiers/NomadBarber/blob/master/README.md). 
 
